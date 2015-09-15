@@ -1,10 +1,21 @@
 var fs = require("fs");
 var path = process.argv[2];
-var encoding = "utf8";
+var extension = "." + process.argv[3];
 
-var str = fs.readFile(path, encoding, function(err, data) {
+var str = fs.readdir(path, function(err, data) {
+	
 	if (err) {
+
 		return err;
+
 	}
-	console.log(data.split("\n").length - 1);
+
+	for (var i = 0; i <= data.length; i ++) {
+
+		if (data[i].indexOf(extension) != -1) {
+
+			console.log(data[i]);
+		}
+	}
+
 });

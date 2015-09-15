@@ -1,21 +1,12 @@
-var fs = require("fs");
+var filter = require("./module");
 var path = process.argv[2];
-var extension = "." + process.argv[3];
-
-var str = fs.readdir(path, function(err, data) {
-	
+var extension = process.argv[3];
+filter(path, extension, function(err, data) {
 	if (err) {
-
 		return err;
-
 	}
-
-	for (var i = 0; i <= data.length; i ++) {
-
-		if (data[i].indexOf(extension) != -1) {
-
-			console.log(data[i]);
-		}
+	for (var i = 0; i<= data.length -1; i ++){
+		console.log(data[i]);
 	}
-
+	
 });

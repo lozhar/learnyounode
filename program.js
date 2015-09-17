@@ -1,32 +1,10 @@
-var net = require('net');
-var port = process.argv[2];
+var http = require('http')
+var fs = require('fs')
 
+var server = http.createServer(function (req, res) {
+  res.writeHead(200, { 'content-type': 'text/plain' })
 
-var server = net.createServer(function (socket) {
-	function addZero (num) {
-		if (num < 10) {
-			var theHour = "0" + num;
-			return theHour;
-		}
-		else {
-			return num;
-		}
-	}
+  fs.createReadStream(process.argv[3]).pipe(res)
+})
 
-	var date = new Date();
-	var year = date.getFullYear();
-	var month = addZero(date.getMonth() + 1);
-	var day = date.getDate();
-	var hours = addZero(date.getHours());
-	var minutes = addZero(date.getMinutes());
-    var data = year+"-"+month+"-"+day+" "+hours+":"+minutes;
-
-
-    socket.end(data);
-
-
-});
-
-server.listen(port);
-
-
+server.listen(Number(process.argv[2]))
